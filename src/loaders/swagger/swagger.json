@@ -1,0 +1,162 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Rest base repo.",
+    "description": "## This is a base api to start new projects.",
+    "version": "0.0.1",
+    "contact": {
+      "email": "fervaldes11@gmail.com"
+    }
+  },
+  
+  "servers":[
+    {
+      "url":"http://localhost:4000/api/v1",
+      "description": "Desarrollo"  
+    },
+    {
+      "url":"https://node-06-restserver.herokuapp.com/api/v1",
+      "description": "Producción"  
+    } 
+  ],
+  "tags": [    
+    {
+      "name": "users",
+      "description": "Operations about users."
+    }
+  ],
+  "paths": {    
+    "/users/": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Get a list of all existing users.",
+        "description": "",             
+        "responses": {
+          "200": {
+            "description": "The array of users in JSON format.",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "array",
+                  "items":{
+                    "$ref": "#/components/schemas/User"                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Create a new user.",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created."
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "put": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Update an existing user by providing the id.",
+        "description": "",           
+        "parameters":[          
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the user that needs to be updated.",
+            "required": true,
+            "schema": {
+              "type":"integer"
+            }
+          }          
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        }, 
+        "responses": {
+          "200": {
+            "description": "The user updated",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "$ref": "#/components/schemas/User" 
+                }
+              }              
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Delete an existing user by providing the id.",
+        "description": "",
+        "parameters":[          
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the user that needs to be deleted.",
+            "required": true,
+            "schema": {
+              "type":"integer"
+            }
+          }          
+        ],     
+        "responses": {
+          "200": {
+            "description": "User deleted."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id":{
+            "description": "The user id.",
+            "type": "integer",          
+            "example": "3"
+          },
+          "name":{
+            "description": "The user name.",
+            "type":"string",          
+            "example":"Adrian"
+          }
+        }
+      }
+    }
+  }
+}
