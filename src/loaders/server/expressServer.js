@@ -10,6 +10,7 @@ class ExpressServer {
 
         this.app = express();
         this.port = config.port;
+        this.basePathAuth = `${config.api.prefix}/auth`;
         this.basePathUser = `${config.api.prefix}/users`;
 
         this._middlewares();
@@ -38,6 +39,7 @@ class ExpressServer {
             res.status(200).json({prueba: 'gitflow'});
         });
 
+        this.app.use(this.basePathAuth, require('../../routes/auth'));
         this.app.use(this.basePathUser, require('../../routes/users'));
     }
 
@@ -59,7 +61,8 @@ class ExpressServer {
             const body = {
                 error: {
                     code,
-                    message: err.message
+                    message: err.message,
+                    detail: err.data
                 }
             }
             res.status(code).json(body);
