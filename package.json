@@ -7,7 +7,8 @@
     "dev": "npx nodemon src",
     "start": "node src",
     "test": "node postman/newman",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,12 @@
     "url": "https://github.com/ktufernando/node-06-restserver/issues"
   },
   "homepage": "https://github.com/ktufernando/node-06-restserver#readme",
+  "lint-staged": {
+    "*.{js,json}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "dependencies": {
     "bcrypt": "^5.0.1",
     "dotenv": "^9.0.2",
@@ -35,8 +42,10 @@
   },
   "devDependencies": {
     "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "newman": "^5.2.3",
     "newman-reporter-htmlextra": "^1.20.4",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "prettier": "^2.3.0"
   }
 }
